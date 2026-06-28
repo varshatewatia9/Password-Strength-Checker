@@ -23,6 +23,8 @@ if any(char in special for char in password):
 print("="*20)
 print(f"Password Score: {score}/5")
 print("="*20)
+percentage = (score / 5) * 100
+print(f"Password Strength Percentage: {percentage:.0f}%")
 
 print("\nSuggestions to improve your password:")
 if len(password) < 8:
@@ -47,4 +49,12 @@ elif score == 2:
     print("Medium Password 👌")
 else:
     print("Weak password ❌")
+print("\nCyberSecurity tip ")
+if score ==5 :
+    print("Great ! Never reuse the same password again ")
+elif score >=3:
+    print("Consider using a password manager for stronger unique password")
+else:
+    print("Weak passwords are vulnerable to brute-force attacks")
+print("\nThank you for using the Password Strength Checker!")
 print("\nMade by Varsha Tewatia")
