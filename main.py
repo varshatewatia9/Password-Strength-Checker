@@ -1,7 +1,11 @@
 import getpass
+
 print("=== Password Strength Checker v1.21111 ===")
 
+name = input("Enter your name: ").lower()
+email = input("Enter your email: ").lower()
 password = getpass.getpass("Enter your password: ")
+
 common_passwords = ["password", "123456", "qwerty", "abc123", "letmein", "monkey", "welcome", "111111", "baseball", "iloveyou"]
 
 score = 0
@@ -22,9 +26,11 @@ special = "!@#$%^&*()_+-=[]{}|;:',.<>?/"
 
 if any(char in special for char in password):
     score += 1
+
 print("="*20)
 print(f"Password Score: {score}/5")
 print("="*20)
+
 percentage = (score / 5) * 100
 print(f"Password Strength Percentage: {percentage:.0f}%")
 
@@ -43,6 +49,10 @@ if not any(char in special for char in password):
 print()
 if password.lower() in common_passwords:
     print("Warning: Your password is a commonly used password. Consider changing it to something more unique.")
+if name in password.lower() :
+    print("Warning: Your password contains your name. Consider changing it to something more unique.")
+if email in password.lower() :
+    print("Warning: Your password contains your email. Consider changing it to something more unique.")
 
 if score == 5:
     print("Very Strong Password 💪")
@@ -63,4 +73,4 @@ else:
     print("Weak passwords are vulnerable to brute-force attacks")
 
 print("\nThank you for using the Password Strength Checker!")
-print("\nMade by Varsha Tewatia")
+print("Made by Varsha Tewatia")
