@@ -1,6 +1,7 @@
+import getpass
 print("=== Password Strength Checker v1.21111 ===")
 
-password = input("Enter your password: ")
+password = getpass.getpass("Enter your password: ")
 common_passwords = ["password", "123456", "qwerty", "abc123", "letmein", "monkey", "welcome", "111111", "baseball", "iloveyou"]
 
 score = 0
