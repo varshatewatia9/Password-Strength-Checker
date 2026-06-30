@@ -56,14 +56,14 @@ if email in password.lower() :
     print("Warning: Your password contains your email. Consider changing it to something more unique.")
 
 if score == 5:
-    print("Very Strong Password 💪")
-
-elif score >= 3:
-    print("Strong Password 👍")
-elif score == 2:
-    print("Medium Password 👌")
+    strength = "Very Strong Password "
+elif score == 4:
+    strength = "Strong Password "
+elif score >= 2:
+    strength = "Medium Password "
 else:
-    print("Weak password ❌")
+    strength = "Weak password "
+print(strength)
 
 print("\nCyberSecurity tip ")
 if score ==5 :
@@ -73,8 +73,6 @@ elif score >=3:
 else:
     print("Weak passwords are vulnerable to brute-force attacks")
 
-print("\nThank you for using the Password Strength Checker!")
-print("Made by Varsha Tewatia")
 letters = "abcdefghijklmnopqrstuvwxyz"
 numbers = "0123456789"  
 symbols = "!@#$%^&*()_+-=[]{}|;:',.<>?/"
@@ -82,5 +80,18 @@ all_charachters = letters+numbers+symbols
 generated_password = "" 
 for _ in range(12):
     generated_password += random.choice(all_charachters)
-
 print("\nGenerated Password:" , generated_password)
+
+save = input("Do you want to save the password report to a file? (yes/no): ")
+if save.lower()=="yes":
+    file=open("password_report.txt","a")
+    file.write("\n=========Password Report=========\n")
+    file.write(f"Password : {password}\n")
+    file.write(f"Password Score: {score}/5\n")
+    file.write(f"Strength : {strength}\n")
+    file.write("=================================\n")
+    file.close()
+    print("\nPassword report saved to password_report.txt")
+
+print("\nThank you for using the Password Strength Checker!")
+print("Made by Varsha Tewatia")
