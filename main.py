@@ -1,3 +1,4 @@
+import random  
 import getpass
 
 print("=== Password Strength Checker v1.21111 ===")
@@ -74,3 +75,12 @@ else:
 
 print("\nThank you for using the Password Strength Checker!")
 print("Made by Varsha Tewatia")
+letters = "abcdefghijklmnopqrstuvwxyz"
+numbers = "0123456789"  
+symbols = "!@#$%^&*()_+-=[]{}|;:',.<>?/"
+all_charachters = letters+numbers+symbols
+generated_password = "" 
+for _ in range(12):
+    generated_password += random.choice(all_charachters)
+
+print("\nGenerated Password:" , generated_password)
