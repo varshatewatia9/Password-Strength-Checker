@@ -1,4 +1,6 @@
-import random  
+import random 
+import hashlib
+import os 
 import getpass
 
 print("=== Password Strength Checker v1.21111 ===")
@@ -6,6 +8,18 @@ print("=== Password Strength Checker v1.21111 ===")
 name = input("Enter your name: ").lower()
 email = input("Enter your email: ").lower()
 password = getpass.getpass("Enter your password: ")
+
+password_hash = hashlib.sha256(password.encode()).hexdigest()
+
+history_file = "password_history.txt"
+
+if os.path.exists(history_file):
+    with open(history_file, "r") as file:
+        previous_passwords = file.read().splitlines()
+
+    if password_hash in previous_passwords:
+        print("\n⚠ Warning: You have already used this password before.")
+        print("Reusing passwords is not recommended.")
 
 common_passwords = ["password", "123456", "qwerty", "abc123", "letmein", "monkey", "welcome", "111111", "baseball", "iloveyou"]
 
@@ -91,6 +105,8 @@ if save.lower()=="yes":
     file.write(f"Strength : {strength}\n")
     file.write("=================================\n")
     file.close()
+    with open(history_file, "a") as file:
+        file.write(password_hash + "\n")
     print("\nPassword report saved to password_report.txt")
 
 print("\nThank you for using the Password Strength Checker!")
