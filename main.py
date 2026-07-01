@@ -1,7 +1,35 @@
 import random 
 import hashlib
+import requests
 import os 
 import getpass
+
+def check_password_breach(password):
+    sha1_password = hashlib.sha1(password.encode()).hexdigest().upper()
+
+    prefix = sha1_password[:5]
+    suffix = sha1_password[5:]
+
+    url = "https://api.pwnedpasswords.com/range/" + prefix
+
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        print("Could not connect to breach database.")
+        return
+
+    hashes = response.text.splitlines()
+
+    for line in hashes:
+        hash_suffix, count = line.split(":")
+        if hash_suffix == suffix:
+            print("\n⚠ WARNING!")
+            print(f"This password has appeared in {count} data breaches.")
+            print("Please choose a different and more unique password.")
+            return
+
+    print("\n✅ Good news!")
+    print("This password was NOT found in the breach database.")
 
 print("=== Password Strength Checker v1.21111 ===")
 
@@ -48,6 +76,8 @@ print("="*20)
 
 percentage = (score / 5) * 100
 print(f"Password Strength Percentage: {percentage:.0f}%")
+
+check_password_breach(password)
 
 print("\nSuggestions to improve your password:")
 if len(password) < 8:
