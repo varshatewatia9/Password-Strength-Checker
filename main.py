@@ -3,7 +3,7 @@ import hashlib
 import requests
 import os 
 import getpass
-
+import math
 
 def check_password_breach(password):
     sha1_password = hashlib.sha1(password.encode()).hexdigest().upper()
@@ -115,6 +115,26 @@ elif score >= 2:
 else:
     strength = "Weak password "
 print(strength)
+charset = 0
+if any(char.islower() for char in password):
+    charset += 26
+if any(char.isupper() for char in password):
+    charset += 26
+if any(char.isdigit() for char in password):
+    charset += 10
+if any(char in special for char in password):
+    charset += len(special)
+if charset > 0:
+    entropy = len(password) * math.log2(charset)
+    print(f"Password Entropy: {entropy:.2f} bits")
+    if entropy < 40:
+        print("Entropy Level: Low (Weak Password)")
+    elif entropy < 60:
+        print("Entropy Level: Medium (Moderate Password)")
+    elif entropy < 80:
+        print("Entropy Level: High (Strong Password)")
+    else:
+        print("Entropy Level: Excellent (Very Strong Password)")
 
 print("\nCyberSecurity tip ")
 if score ==5 :
