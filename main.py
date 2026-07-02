@@ -4,6 +4,7 @@ import requests
 import os 
 import getpass
 
+
 def check_password_breach(password):
     sha1_password = hashlib.sha1(password.encode()).hexdigest().upper()
 
@@ -50,6 +51,7 @@ if os.path.exists(history_file):
         print("Reusing passwords is not recommended.")
 
 common_passwords = ["password", "123456", "qwerty", "abc123", "letmein", "monkey", "welcome", "111111", "baseball", "iloveyou"]
+keyboard_patterns = ["qwerty", "asdfgh", "zxcvbn", "123456", "password", "asdfghjkl","1q2w3e4r", "qazwsx", "1qaz2wsx", "qwertyuiop"]
 
 score = 0
 
@@ -98,6 +100,11 @@ if name in password.lower() :
     print("Warning: Your password contains your name. Consider changing it to something more unique.")
 if email in password.lower() :
     print("Warning: Your password contains your email. Consider changing it to something more unique.")
+
+for pattern in keyboard_patterns:
+    if pattern in password.lower():
+        print(f"Warning: Your password contains a common keyboard pattern '{pattern}'. Consider changing it to something more unique.")   
+        break
 
 if score == 5:
     strength = "Very Strong Password "
